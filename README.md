@@ -12,7 +12,7 @@ Ce projet contient un script bash automatisé qui :
 
 ## Fonctionnalités
 
-- ✅ Capture réseau ciblée vers `taisezmoi.com`
+- ✅ Capture réseau ciblée vers `www.taisezmoi.com`
 - ✅ Export automatique des clés SSL/TLS via `SSLKEYLOGFILE`
 - ✅ Rotation des fichiers de capture (10 minutes / 1MB max)
 - ✅ Gestion des permissions root pour tcpdump
@@ -24,6 +24,7 @@ Ce projet contient un script bash automatisé qui :
 - `tcpdump` installé
 - `sudo` privilèges pour tcpdump
 - Google Chrome installé (`/usr/bin/google-chrome-stable`)
+- Permissions d'écriture dans `/tmp/` (le script gère automatiquement les permissions)
 
 ## Installation
 
@@ -40,8 +41,8 @@ chmod +x watchdog.sh
 ```
 
 Le script va :
-1. Créer les répertoires nécessaires
-2. Lancer Chrome en arrière-plan
+1. Créer les répertoires nécessaires avec les bonnes permissions
+2. Lancer Chrome vers www.taisezmoi.com en arrière-plan
 3. Démarrer la capture tcpdump (nécessite sudo)
 4. Sauvegarder les fichiers dans `~/Documents/tcpdump-mini-project/`
 

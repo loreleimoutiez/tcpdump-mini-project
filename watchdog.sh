@@ -8,7 +8,8 @@ export SSLKEYLOGFILE="$HOME/Documents/tcpdump-mini-project/sslkeys"
 
 # Répertoire temporaire pour la capture (accessible par root)
 TMP_CAPTURE_DIR="/tmp/tcpdump-captures"
-mkdir -p "$TMP_CAPTURE_DIR"
+sudo mkdir -p "$TMP_CAPTURE_DIR"
+sudo chmod 777 "$TMP_CAPTURE_DIR"
 
 # Répertoire de destination final pour les captures
 DEST_DIR="$HOME/Documents/tcpdump-mini-project"
@@ -19,7 +20,7 @@ TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
 TMP_FILENAME="$TMP_CAPTURE_DIR/capture-$TIMESTAMP.pcap"
 
 # Démarre Chrome pour générer du trafic TLS
-/usr/bin/google-chrome-stable &
+/usr/bin/google-chrome-stable "https://www.taisezmoi.com" &
 sleep 10
 
 # Lance tcpdump avec privilèges root pour capturer le trafic vers taisezmoi.com
