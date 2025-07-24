@@ -33,3 +33,19 @@ sudo tcpdump -i any host taisezmoi.com -n -v \
 sudo mv "$TMP_FILENAME"* "$DEST_DIR"
 
 echo "Capture terminée et déplacée dans $DEST_DIR"
+
+# Trouve le fichier de capture le plus récent
+LATEST_CAPTURE=$(ls -t "$DEST_DIR"/capture-*.pcap 2>/dev/null | head -n1)
+
+if [ -n "$LATEST_CAPTURE" ]; then
+    echo "Lancement de Wireshark avec le fichier de capture: $(basename "$LATEST_CAPTURE")"
+    echo "Les clés TLS seront automatiquement chargées depuis: $SSLKEYLOGFILE"
+    
+    # Lance Wireshark avec le fichier de capture et les clés TLS
+    # -o tls.keylog_file configure automatiquement le déchiffrement HTTPS
+    wireshark -o tls.keylog_file:"$SSLKEYLOGFILE" "$LATEST_CAPTURE" &
+    
+    echo "Wireshark lancé en arrière-plan pour l'analyse des paquets déchiffrés"
+else
+    echo "Aucun fichier de capture trouvé à analyser"
+fi

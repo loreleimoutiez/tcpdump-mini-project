@@ -17,6 +17,7 @@ Ce projet contient un script bash automatisé qui :
 - ✅ Rotation des fichiers de capture (10 minutes / 1MB max)
 - ✅ Gestion des permissions root pour tcpdump
 - ✅ Organisation automatique des fichiers de sortie
+- ✅ **Lancement automatique de Wireshark avec déchiffrement TLS**
 
 ## Prérequis
 
@@ -24,6 +25,7 @@ Ce projet contient un script bash automatisé qui :
 - `tcpdump` installé
 - `sudo` privilèges pour tcpdump
 - Google Chrome installé (`/usr/bin/google-chrome-stable`)
+- **Wireshark installé** (pour l'analyse automatique)
 - Permissions d'écriture dans `/tmp/` (le script gère automatiquement les permissions)
 
 ## Installation
@@ -45,6 +47,7 @@ Le script va :
 2. Lancer Chrome vers www.taisezmoi.com en arrière-plan
 3. Démarrer la capture tcpdump (nécessite sudo)
 4. Sauvegarder les fichiers dans `~/Documents/tcpdump-mini-project/`
+5. **Ouvrir automatiquement Wireshark avec les clés TLS pour l'analyse déchiffrée**
 
 ## Structure des fichiers
 
@@ -66,7 +69,14 @@ tcpdump-mini-project/
 
 ## Analyse des captures
 
-Les fichiers `.pcap` peuvent être analysés avec :
+Le script lance **automatiquement Wireshark** à la fin de la capture avec :
+- **Configuration automatique des clés TLS** : `-o tls.keylog_file:sslkeys`
+- **Déchiffrement HTTPS en temps réel** des paquets capturés
+- **Interface graphique** pour l'analyse détaillée du trafic
+
+### Analyse manuelle alternative
+
+Les fichiers `.pcap` peuvent aussi être analysés manuellement avec :
 - **Wireshark** : Interface graphique pour l'analyse détaillée
 - **tshark** : Version en ligne de commande de Wireshark
 - Les clés TLS dans le fichier `sslkeys` permettent le déchiffrement HTTPS
